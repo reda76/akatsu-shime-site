@@ -320,17 +320,17 @@ body {
 }
 .as-hero:hover .as-hero__logo-img--glow { opacity: 1; }
 
-/* Touch devices: no hover cursor, show full logo by default */
+/* Touch devices: no hover cursor → keep muted base, hide the torch layer */
 @media (hover: none) {
-  .as-hero__logo-img--base { opacity: 1; filter: none; }
   .as-hero__logo-img--glow { display: none; }
 }
 
 @media (max-width: 900px) {
-  .as-hero__logo { right: 16px; width: 48%; opacity: 0.5; }
+  .as-hero__logo { right: 16px; width: 48%; }
 }
 @media (max-width: 540px) {
-  .as-hero__logo { right: -12%; width: 86%; opacity: 0.2; }
+  .as-hero__logo { right: -12%; width: 86%; }
+  .as-hero__logo-img--base { opacity: 0.09; }
 }
 .as-hero__slash {
   position: absolute;
