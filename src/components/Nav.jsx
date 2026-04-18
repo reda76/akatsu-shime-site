@@ -14,8 +14,39 @@ export default function Nav({ active = 'accueil', onNav }) {
   const listRef = useRef(null)
   const linkRefs = useRef({})
   const [indicator, setIndicator] = useState({ x: 0, w: 0, on: false })
+  const [menuOpen, setMenuOpen] = useState(false)
   const y = useScrollY()
   const scrolled = y > 16
+
+  // Lock body scroll when mobile menu is open; close on Escape.
+  useEffect(() => {
+    if (!menuOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
+  // Close mobile menu when viewport grows past the breakpoint.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 721px)')
+    const onChange = (e) => {
+      if (e.matches) setMenuOpen(false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const goAndClose = (id) => {
+    setMenuOpen(false)
+    onNav?.(id)
+  }
 
   useLayoutEffect(() => {
     const anchor = linkRefs.current[active]
@@ -116,6 +147,56 @@ export default function Nav({ active = 'accueil', onNav }) {
           }}
         >
           Cours d'essai
+        </a>
+        <button
+          type="button"
+          className="as-nav__toggle"
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={menuOpen}
+          aria-controls="as-mobile-menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          {menuOpen ? (
+            <svg viewBox="0 0 24 24" aria-hidden>
+              <path d="M6 6l12 12M6 18L18 6" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" aria-hidden>
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      <div
+        id="as-mobile-menu"
+        className={`as-mobile-menu ${menuOpen ? 'is-open' : ''}`}
+        aria-hidden={!menuOpen}
+      >
+        {LINKS.map((l) => (
+          <a
+            key={l.id}
+            href={`#${l.id}`}
+            className="as-mobile-menu__link"
+            aria-current={active === l.id ? 'page' : undefined}
+            onClick={(e) => {
+              e.preventDefault()
+              goAndClose(l.id)
+            }}
+          >
+            {l.label}
+          </a>
+        ))}
+        <div className="as-mobile-menu__kanji" aria-hidden>柔 · 術 · 絞</div>
+        <a
+          href="#essai"
+          className="as-btn as-btn--primary as-btn--block"
+          onClick={(e) => {
+            e.preventDefault()
+            goAndClose('essai')
+          }}
+        >
+          Réserve ton cours d'essai
         </a>
       </div>
     </header>
