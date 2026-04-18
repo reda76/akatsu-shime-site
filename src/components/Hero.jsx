@@ -20,7 +20,7 @@ export default function Hero({ onCta }) {
   const classes = useCountUp(4, { start: statsIn, duration: 1200 })
   const year = useCountUp(2018, { start: statsIn, duration: 1600 })
 
-  // Cursor-tracked vars: --mx/--my on hero (spotlight), --lx/--ly on logo (torch)
+  // Cursor-tracked vars: --mx/--my on hero drive the ambient red spotlight.
   useEffect(() => {
     if (reduced) return
     const el = heroRef.current
@@ -29,12 +29,6 @@ export default function Hero({ onCta }) {
       const r = el.getBoundingClientRect()
       el.style.setProperty('--mx', `${e.clientX - r.left}px`)
       el.style.setProperty('--my', `${e.clientY - r.top}px`)
-      const logo = logoRef.current
-      if (logo) {
-        const lr = logo.getBoundingClientRect()
-        logo.style.setProperty('--lx', `${e.clientX - lr.left}px`)
-        logo.style.setProperty('--ly', `${e.clientY - lr.top}px`)
-      }
     }
     el.addEventListener('mousemove', onMove)
     return () => el.removeEventListener('mousemove', onMove)
@@ -89,8 +83,7 @@ export default function Hero({ onCta }) {
       <div className="as-hero__grain" aria-hidden />
       <div className="as-hero__slash" aria-hidden />
       <div className="as-hero__logo" ref={logoRef} aria-hidden>
-        <img className="as-hero__logo-img as-hero__logo-img--base" src={logo} alt="" />
-        <img className="as-hero__logo-img as-hero__logo-img--glow" src={logo} alt="" />
+        <img className="as-hero__logo-img" src={logo} alt="" />
       </div>
       <div className="as-hero__scanlines" aria-hidden />
 
