@@ -450,6 +450,8 @@ body {
   padding: 18px 0;
   background: var(--ink-1);
   margin: 64px 0 40px;
+  max-width: none;
+  width: 100%;
 }
 .as-marquee__track {
   display: flex;
