@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#c4161c"></circle>
+  <circle cx="50" cy="50" r="46" fill="none" stroke="#ededea" stroke-width="1.5"></circle>
+  <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans JP, sans-serif" font-weight="900" font-size="56" fill="#ededea">柔</text>
+</svg>

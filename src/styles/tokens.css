@@ -1,0 +1,261 @@
+/* ============================================================
+   AKATSU SHIME — Design Tokens
+   Colors, type, spacing, radius, shadow. Import once globally.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700;900&display=swap');
+
+:root {
+  /* ---------- COLOR — base ---------- */
+  --ink-0:        #000000;   /* absolute black, rare */
+  --ink-1:        #0a0a0d;   /* page background */
+  --ink-2:        #111116;   /* raised surface */
+  --ink-3:        #1a1a20;   /* card */
+  --ink-4:        #242430;   /* hover card / inset */
+  --ink-5:        #33333f;   /* divider strong */
+
+  --bone-1:       #ededea;   /* primary text on dark */
+  --bone-2:       #c8c8c3;   /* secondary text */
+  --bone-3:       #8c8c92;   /* tertiary / muted */
+  --bone-4:       #5b5c63;   /* disabled */
+
+  --blood-1:      #c4161c;   /* primary accent */
+  --blood-2:      #a00f14;   /* pressed */
+  --blood-3:      #8a1813;   /* deep / logo red */
+  --ember-1:      #fd8a7f;   /* hover highlight, ornamental */
+
+  --white-pure:   #ffffff;   /* logo + highest emphasis only */
+
+  /* ---------- COLOR — semantic (desaturated to not fight blood) ---------- */
+  --success:      #6a8f5a;
+  --warn:         #c69845;
+  --danger:       var(--blood-1);
+  --info:         #6a7e8f;
+
+  /* ---------- COLOR — borders ---------- */
+  --border:           rgba(237, 237, 234, 0.08);
+  --border-strong:    rgba(237, 237, 234, 0.16);
+  --border-blood:     rgba(196, 22, 28, 0.48);
+
+  /* ---------- COLOR — semantic role tokens ---------- */
+  --bg:           var(--ink-1);
+  --surface:      var(--ink-2);
+  --surface-2:    var(--ink-3);
+  --surface-3:    var(--ink-4);
+
+  --fg:           var(--bone-1);
+  --fg-muted:     var(--bone-2);
+  --fg-dim:       var(--bone-3);
+  --fg-disabled:  var(--bone-4);
+
+  --accent:       var(--blood-1);
+  --accent-hover: var(--ember-1);
+  --accent-deep:  var(--blood-3);
+
+  /* ---------- TYPE — families ---------- */
+  --ff-display:   'Bebas Neue', 'Impact', 'Oswald', sans-serif;
+  --ff-body:      'Archivo', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ff-jp:        'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  --ff-mono:      ui-monospace, 'JetBrains Mono', 'SF Mono', monospace;
+
+  /* ---------- TYPE — size scale ---------- */
+  --fs-12:  0.75rem;
+  --fs-14:  0.875rem;
+  --fs-16:  1rem;
+  --fs-18:  1.125rem;
+  --fs-22:  1.375rem;
+  --fs-28:  1.75rem;
+  --fs-36:  2.25rem;
+  --fs-48:  3rem;
+  --fs-64:  4rem;
+  --fs-88:  5.5rem;
+
+  /* ---------- TYPE — weight ---------- */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ---------- TYPE — tracking ---------- */
+  --tr-tight:    -0.01em;
+  --tr-normal:    0;
+  --tr-display:   0.04em;
+  --tr-eyebrow:   0.16em;
+  --tr-kanji:     0;
+
+  /* ---------- TYPE — leading ---------- */
+  --lh-display:  1.0;
+  --lh-heading:  1.15;
+  --lh-title:    1.3;
+  --lh-body:     1.5;
+  --lh-loose:    1.7;
+
+  /* ---------- SPACING — 8px base ---------- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ---------- RADIUS — crisp, never pill ---------- */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+
+  /* ---------- SHADOW ---------- */
+  --shadow-inset-top:  inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-card:       0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-lift:       0 8px 24px rgba(0, 0, 0, 0.5), var(--shadow-inset-top);
+  --shadow-modal:      0 24px 64px rgba(0, 0, 0, 0.7), var(--shadow-inset-top);
+  --shadow-focus:      0 0 0 2px var(--ink-1), 0 0 0 4px var(--blood-1);
+
+  /* ---------- MOTION ---------- */
+  --dur-micro:   120ms;
+  --dur-base:    200ms;
+  --dur-reveal:  400ms;
+  --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-inout:  cubic-bezier(0.4, 0, 0.6, 1);
+
+  /* ---------- LAYOUT ---------- */
+  --content-max: 1280px;
+  --content-pad-x: 32px;
+  --nav-height:  72px;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES — apply by referencing role classes
+   (.h1, .h2, .eyebrow, etc.). Not global element resets.
+   ============================================================ */
+
+.h-display {
+  font-family: var(--ff-display);
+  font-size: var(--fs-88);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--fg);
+  text-transform: uppercase;
+  font-weight: var(--fw-regular);
+}
+
+.h1 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-64);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--fg);
+  text-transform: uppercase;
+  font-weight: var(--fw-regular);
+}
+
+.h2 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-48);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tr-display);
+  color: var(--fg);
+  text-transform: uppercase;
+  font-weight: var(--fw-regular);
+}
+
+.h3 {
+  font-family: var(--ff-body);
+  font-size: var(--fs-28);
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-tight);
+  color: var(--fg);
+  font-weight: var(--fw-semibold);
+}
+
+.h4 {
+  font-family: var(--ff-body);
+  font-size: var(--fs-22);
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-normal);
+  color: var(--fg);
+  font-weight: var(--fw-semibold);
+}
+
+.eyebrow {
+  font-family: var(--ff-body);
+  font-size: var(--fs-12);
+  line-height: 1.2;
+  letter-spacing: var(--tr-eyebrow);
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+}
+
+.p {
+  font-family: var(--ff-body);
+  font-size: var(--fs-16);
+  line-height: var(--lh-body);
+  color: var(--fg-muted);
+  font-weight: var(--fw-regular);
+}
+
+.p-lead {
+  font-family: var(--ff-body);
+  font-size: var(--fs-18);
+  line-height: var(--lh-body);
+  color: var(--fg-muted);
+  font-weight: var(--fw-regular);
+}
+
+.p-small {
+  font-family: var(--ff-body);
+  font-size: var(--fs-14);
+  line-height: var(--lh-body);
+  color: var(--fg-dim);
+  font-weight: var(--fw-regular);
+}
+
+.caption {
+  font-family: var(--ff-body);
+  font-size: var(--fs-12);
+  line-height: var(--lh-body);
+  color: var(--fg-dim);
+  font-weight: var(--fw-medium);
+}
+
+.kanji {
+  font-family: var(--ff-jp);
+  font-weight: 900;
+  letter-spacing: var(--tr-kanji);
+  color: var(--accent);
+}
+
+.mono {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-14);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   BASE PAGE RESET — opt-in via .akatsu-body on <body>
+   ============================================================ */
+.akatsu-body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--ff-body);
+  font-size: var(--fs-16);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ============================================================
+   FOCUS RING — global
+   ============================================================ */
+.akatsu-body :focus-visible {
+  outline: 2px solid var(--blood-1);
+  outline-offset: 2px;
+  border-radius: var(--r-1);
+}
