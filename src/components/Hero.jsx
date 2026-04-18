@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useInView } from '../hooks/useInView.js'
 import { useCountUp } from '../hooks/useCountUp.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
+import logo from '../assets/logo-akatsu-shime.svg'
 
 const LINES = [
   ['ACADÉMIE', 'DE'],
@@ -11,6 +12,7 @@ const LINES = [
 
 export default function Hero({ onCta }) {
   const heroRef = useRef(null)
+  const logoRef = useRef(null)
   const [statsRef, statsIn] = useInView({ threshold: 0.4 })
   const reduced = useReducedMotion()
 
@@ -18,7 +20,7 @@ export default function Hero({ onCta }) {
   const classes = useCountUp(4, { start: statsIn, duration: 1200 })
   const year = useCountUp(2018, { start: statsIn, duration: 1600 })
 
-  // Mouse-tracked spotlight
+  // Cursor-tracked vars: --mx/--my on hero (spotlight), --lx/--ly on logo (torch)
   useEffect(() => {
     if (reduced) return
     const el = heroRef.current
@@ -27,12 +29,18 @@ export default function Hero({ onCta }) {
       const r = el.getBoundingClientRect()
       el.style.setProperty('--mx', `${e.clientX - r.left}px`)
       el.style.setProperty('--my', `${e.clientY - r.top}px`)
+      const logo = logoRef.current
+      if (logo) {
+        const lr = logo.getBoundingClientRect()
+        logo.style.setProperty('--lx', `${e.clientX - lr.left}px`)
+        logo.style.setProperty('--ly', `${e.clientY - lr.top}px`)
+      }
     }
     el.addEventListener('mousemove', onMove)
     return () => el.removeEventListener('mousemove', onMove)
   }, [reduced])
 
-  // Scroll parallax on kanji
+  // Scroll parallax on logo
   useEffect(() => {
     if (reduced) return
     const el = heroRef.current
@@ -40,7 +48,7 @@ export default function Hero({ onCta }) {
     let raf = 0
     const update = () => {
       const y = window.scrollY
-      const amount = Math.min(200, y * 0.25)
+      const amount = Math.min(160, y * 0.2)
       el.style.setProperty('--hero-parallax', `${amount}px`)
       raf = 0
     }
@@ -79,8 +87,11 @@ export default function Hero({ onCta }) {
     <section id="accueil" className="as-hero" ref={heroRef} data-screen-label="01 Hero">
       <div className="as-hero__spotlight" aria-hidden />
       <div className="as-hero__grain" aria-hidden />
-      <div className="as-hero__kanji" aria-hidden>柔術</div>
       <div className="as-hero__slash" aria-hidden />
+      <div className="as-hero__logo" ref={logoRef} aria-hidden>
+        <img className="as-hero__logo-img as-hero__logo-img--base" src={logo} alt="" />
+        <img className="as-hero__logo-img as-hero__logo-img--glow" src={logo} alt="" />
+      </div>
       <div className="as-hero__scanlines" aria-hidden />
 
       <div className="as-hero__content">

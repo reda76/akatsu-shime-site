@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     if (reduced) return
-    const t = setTimeout(() => setLoaded(true), 2000)
+    const t = setTimeout(() => setLoaded(true), 2600)
     return () => clearTimeout(t)
   }, [reduced])
 
@@ -63,8 +63,10 @@ export default function App() {
     <>
       {!reduced && (
         <div className={`as-loader ${loaded ? 'is-done' : ''}`} aria-hidden>
-          <img className="as-loader__mark" src={logo} alt="" />
-          <div className="as-loader__wipe" />
+          <div className="as-loader__center">
+            <img className="as-loader__mark" src={logo} alt="" />
+            <span className="as-loader__sparkle" />
+          </div>
         </div>
       )}
       <div className="as-progress" aria-hidden>
