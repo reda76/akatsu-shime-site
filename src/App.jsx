@@ -27,6 +27,7 @@ export default function App() {
 
   useEffect(() => {
     if (reduced) return
+    if (typeof window !== 'undefined' && window.location.hash === '#freeze-loader') return
     const t = setTimeout(() => setLoaded(true), 2600)
     return () => clearTimeout(t)
   }, [reduced])
