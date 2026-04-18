@@ -23,7 +23,7 @@ body {
 ::selection { background: var(--blood-1); color: #fff; }
 
 /* ---------- Typographic helpers ---------- */
-.as-h-display { font-family: var(--ff-display); font-size: clamp(56px, 8vw, 140px); line-height: 0.9; letter-spacing: 0.03em; color: var(--fg); text-transform: uppercase; margin: 0; }
+.as-h-display { font-family: var(--ff-display); font-size: clamp(44px, 11vw, 140px); line-height: 0.9; letter-spacing: 0.03em; color: var(--fg); text-transform: uppercase; margin: 0; overflow-wrap: anywhere; }
 .as-h2         { font-family: var(--ff-display); font-size: clamp(36px, 4.6vw, 64px); line-height: 1.02; letter-spacing: 0.04em; color: var(--fg); text-transform: uppercase; margin: 0 0 16px; }
 .as-h3         { font-family: var(--ff-body);    font-size: 20px; font-weight: 600; letter-spacing: -0.005em; color: var(--fg); margin: 0 0 8px; }
 .as-lead       { font-family: var(--ff-body); font-size: 17px; line-height: 1.55; color: var(--fg-muted); max-width: 60ch; margin: 0 0 24px; }
@@ -503,15 +503,41 @@ body {
 .as-sched__legend i.muted { background: var(--ink-4); }
 
 @media (max-width: 900px) {
-  .as-sched { grid-template-columns: 48px repeat(7, minmax(42px, 1fr)); overflow-x: auto; }
+  .as-sched {
+    grid-template-columns: 48px repeat(7, minmax(54px, 1fr));
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blood-1) transparent;
+  }
+  .as-sched::-webkit-scrollbar { height: 4px; }
+  .as-sched::-webkit-scrollbar-thumb { background: var(--blood-1); border-radius: 2px; }
   .as-sched__block { padding: 6px 8px; font-size: 10px; }
   .as-sched__block .type { font-size: 9px; letter-spacing: 0.04em; }
+  .as-sched__hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 12px;
+  }
+  .as-sched__hint::before { content: "←"; color: var(--blood-1); }
+  .as-sched__hint::after  { content: "→"; color: var(--blood-1); }
 }
+@media (min-width: 901px) { .as-sched__hint { display: none; } }
 
 /* ---------- Meute (flip cards) ---------- */
 .as-member-card {
   perspective: 1000px;
   height: 320px;
+}
+@media (max-width: 540px) {
+  .as-member-card { height: 260px; }
 }
 .as-member-card__inner {
   position: relative;
@@ -723,6 +749,7 @@ body {
 .as-footer__kanji { font-family: var(--ff-jp); font-weight: 900; color: var(--blood-1); letter-spacing: 0.2em; font-size: 14px; }
 
 @media (max-width: 900px) { .as-footer__inner { grid-template-columns: 1fr; gap: 40px; } .as-footer__cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .as-footer__cols { grid-template-columns: 1fr; gap: 28px; } .as-footer__base { flex-direction: column; gap: 10px; align-items: flex-start; } }
 
 /* ---------- Scroll reveal utility ---------- */
 .reveal {

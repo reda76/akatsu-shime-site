@@ -74,6 +74,7 @@ export default function Schedule() {
         </div>
       )}
 
+      <div className="as-sched__hint" aria-hidden>Glisse pour voir la semaine</div>
       <ScrollReveal>
         <div className="as-sched" role="table" aria-label="Planning hebdomadaire des cours">
           <div className="as-sched__corner" aria-hidden />
